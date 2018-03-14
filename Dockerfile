@@ -1,19 +1,4 @@
-FROM docker.io/debian:stretch as build
-
-ARG cores=4
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-       autoconf \
-       automake \
-       build-essential \
-       ca-certificates \
-       git \
-       libtool \
-       pkg-config \
-    && rm -rfv /var/lib/apt/lists/*
-
-FROM build as clustal
+FROM docker.io/hybsearch/docker-base:v1.1
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -23,6 +8,8 @@ RUN apt-get update \
 
 ADD . /clustal
 WORKDIR /clustal
+
+ARG cores=4
 
 RUN ./configure --prefix=/usr/local --disable-dependency-tracking
 RUN make -j$cores
