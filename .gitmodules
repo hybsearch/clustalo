@@ -1,0 +1,3 @@
+[submodule ".circleci"]
+	path = .circleci
+	url = https://github.com/hybsearch/circleci-config
