@@ -12,9 +12,6 @@ jobs:
   build:
     docker:
       - image: circleci/buildpack-deps:stretch-scm
-    environment:
-      LOCAL_NAME: hybsearch/clustal
-      DEST_NAME: docker.io/hybsearch/clustal
     steps:
       - checkout
       - setup_remote_docker
