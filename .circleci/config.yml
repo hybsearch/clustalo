@@ -7,6 +7,15 @@ workflows:
     jobs:
       - build:
           context: docker-hub
+  on_tag:
+    jobs:
+      - build:
+          context: docker-hub
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
 
 jobs:
   build:
@@ -28,7 +37,7 @@ jobs:
           command: |
             docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - run:
-          name: Push to Docker Hub
+          name: 'Push to Docker Hub'
           command: |
             image_id="$(docker images -q "$LOCAL_NAME:$CIRCLE_SHA1")"
             echo "image_id: $image_id"
